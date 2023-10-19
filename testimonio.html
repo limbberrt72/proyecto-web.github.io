@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>El rincon del golozo</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<style>
+    /*//////////////////////////////////////////////////////////////*/
+    table {
+        border-collapse: separate;
+        border-spacing: 0 10px;
+        width: 80%;
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    th,
+    td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #c7a17a;
+        color: #fff;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f5f5f5;
+    }
+
+    tr:hover {
+        background-color: #c7a17a;
+        color: #fff;
+    }
+
+    img {
+        max-width: 100px;
+        height: auto;
+    }
+
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-content {
+        background-color: #fff;
+        width: 60%;
+        max-width: 400px;
+        margin: 100px auto;
+        padding: 20px;
+        border: 1px solid #333;
+    }
+
+
+    .open-modal {
+        cursor: pointer;
+        color: white;
+        font-size: 18px;
+        margin: 10px;
+        padding: 10px;
+        background: #c7a17a;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    form {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+        max-width: 400px;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    h2 {
+        color: #c7a17a;
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        border: 2px solid #c7a17a;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    button {
+        background: linear-gradient(to right, #c7a17a, #c7a17a);
+        color: white;
+        padding: 15px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 18px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    button:hover {
+        background: linear-gradient(to right, #c7a17a, #c7a17a);
+    }
+</style>
+
+<body>
+    <header>
+        <div class="container-hero">
+            <div class="container hero">
+                <div class="customer-support">
+                    <i class="fa-solid fa-headset"></i>
+                    <div class="content-customer-support">
+                        <span class="text">Contactanos</span>
+                        <span class="number">123-456-7890</span>
+                    </div>
+                </div>
+
+                <div class="container-logo">
+                    <i class="fa-solid fa-mug-hot"></i>
+                    <h1 class="logo"><a href="#">El rincon del golozo</a></h1>
+                </div>
+
+                <div class="container-user">
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container-navbar">
+            <nav class="navbar container">
+                <i class="fa-solid fa-bars"></i>
+                <ul class="menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Secon</a></li>
+                    <li><a href="#">Expreso</a></li>
+                    <li><a href="saludable.html">Saludable</a></li>
+                    <li><a href="#">Más</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a style="color: #fff;" href="testimonio.html">Testimonio</a></li>
+                </ul>
+
+
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <section class="container top-categories">
+            <h1 class="heading-1">Testimonios
+                <span class="open-modal" onclick="openModal()">Adiciona Comentario</span>
+            </h1>
+
+            <div id="miFormulario" class="modal">
+                <div class="modal-content">
+                    <form id="testimonyForm">
+                        <h2>Formulario de Testimonios</h2>
+
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" required>
+
+                        <label for="email">Correo Electrónico:</label>
+                        <input type="email" id="email" name="email" required>
+
+                        <label for="mensaje">Mensaje:</label>
+                        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+
+                        <button type="button" onclick="submitTestimony();closeModal()">Enviar </button>
+
+                    </form>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                </tbody>
+            </table>
+        </section>
+
+
+    </main>
+
+    <footer class="footer">
+        <div class="container container-footer">
+            <div class="menu-footer">
+                <div class="contact-info">
+                    <p class="title-footer">Información de Contacto</p>
+                    <ul>
+                        <li>Teléfono: 65895985</li>
+                        <li>EmaiL: golozo@rincon.com</li>
+                    </ul>
+                    <div class="social-icons">
+                        <span class="facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </span>
+                        <span class="twitter">
+                            <i class="fa-brands fa-twitter"></i>
+                        </span>
+                        <span class="youtube">
+                            <i class="fa-brands fa-youtube"></i>
+                        </span>
+                        <span class="pinterest">
+                            <i class="fa-brands fa-pinterest-p"></i>
+                        </span>
+                        <span class="instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="information">
+                    <p class="title-footer">Información</p>
+                    <ul>
+                        <li><a href="#">Acerca de Nosotros</a></li>
+
+                        <li><a href="#">Politicas de Privacidad</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                        <li><a href="#">Contactános</a></li>
+                    </ul>
+                </div>
+
+                <div class="my-account">
+                    <p class="title-footer">Mi cuenta</p>
+
+                    <ul>
+                        <li><a href="#">Recetas</a></li>
+                        <li><a href="#">Comida Saludable</a></li>
+                        <li><a href="#">Recomendados</a></li>
+
+                    </ul>
+                </div>
+
+                <div class="newsletter">
+                    <p class="title-footer">DESCUBRE DELICIOSAS RECETAS</p>
+
+                    <div class="content">
+                        <p>
+                            Mejores recetas mensuales
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="copyright">
+                    <p>
+                        Desarrollado por el equipo fantastico
+                    </p>
+
+
+                </div>
+            </div>
+
+    </footer>
+
+    <script src="https://kit.fontawesome.com/81581fb069.js" crossorigin="anonymous"></script>
+    <script>
+
+        setTimeout(() => {
+            var productos = [
+                { nombre: 'Producto 1', email: 'Producto 1', mensaje: '$19.99' },
+                { nombre: 'Producto 2', email: 'Producto 2', mensaje: '$24.99' },
+                { nombre: 'Producto 3', email: 'Producto 3', mensaje: '$14.99' },
+                { nombre: 'Producto 4', email: 'Producto 4', mensaje: '$29.99' }
+            ];
+            console.log("Retrasado por 1 segundo.");
+            var datosAlmacenados = localStorage.getItem("formularioDatos");
+            console.log("*", productos);
+            productos = JSON.parse(datosAlmacenados);
+            console.log("******", productos);
+        }, "1000");
+        function llenarTabla() {
+            const tableBody = document.getElementById('table-body');
+
+            productos.forEach(producto => {
+                const row = document.createElement('tr');
+
+
+                const nombreCell = document.createElement('td');
+                nombreCell.textContent = producto.nombre;
+
+                const emailCell = document.createElement('td');
+                emailCell.textContent = producto.email;
+
+                const mensajell = document.createElement('td');
+                mensajell.textContent = producto.mensaje;
+                row.appendChild(nombreCell);
+                row.appendChild(emailCell);
+                row.appendChild(mensajell);
+
+                tableBody.appendChild(row);
+            });
+        }
+        llenarTabla();
+
+        function openModal() {
+            document.getElementById("miFormulario").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("miFormulario").style.display = "none";
+        }
+        function submitTestimony() {
+
+            alert("¡Gracias por tu testimonio!");
+        }
+
+
+
+        document.getElementById("miFormulario").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            // Obtener los valores del formulario
+            var nombre = document.getElementById("nombre").value;
+            var email = document.getElementById("email").value;
+            var mensaje = document.getElementById("mensaje").value;
+
+            // Crear un objeto con los datos
+            var datos = {
+                nombre: nombre,
+                email: email,
+                mensaje: mensaje
+            };
+
+            // Almacenar los datos en el localStorage
+            localStorage.setItem("formularioDatos", JSON.stringify(datos));
+
+
+            // Limpiar el formulario
+            document.getElementById("miFormulario").reset();
+        });
+    </script>
+</body>
+
+</html>
