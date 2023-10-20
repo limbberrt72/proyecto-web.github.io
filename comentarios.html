@@ -14,7 +14,7 @@
         border-collapse: separate;
         border-spacing: 0 10px;
         width: 80%;
-        max-width: 600px;
+        max-width: 800px;
         margin: 20px auto;
         background-color: #fff;
         border: 1px solid #ddd;
@@ -176,14 +176,14 @@
     <main class="main-content">
 
         <section class="container top-categories">
-            <h1 class="heading-1">Testimonios
+            <h1 class="heading-1">OPINIONES Y COMENTARIOS
                 <span class="open-modal" onclick="openModal()">Adiciona Comentario</span>
             </h1>
 
             <div id="miFormulario" class="modal">
                 <div class="modal-content">
                     <form id="testimonyForm">
-                        <h2>Formulario de Testimonios</h2>
+                        <h2>Formulario de Opiniones Y Comentarios</h2>
 
                         <label for="nombre">Nombre:</label>
                         <input type="text" id="nombre" name="nombre" required>
@@ -194,7 +194,7 @@
                         <label for="mensaje">Mensaje:</label>
                         <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
 
-                        <button type="button" onclick="submitTestimony();closeModal()">Enviar </button>
+                        <button type="button" onclick="submitTestimony()">Enviar </button>
 
                     </form>
                 </div>
@@ -202,17 +202,28 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Imagen</th>
-                        <th>Producto</th>
-                        <th>Precio</th>
+                        <th>Nombre</th>
+                        <th>Mensaje</th>
+                        <th>Correo</th>
                     </tr>
                 </thead>
+                <tbody>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td> Una rica comida
+                            Un restaurante bastante agradable sus camareros te hacen sentir bienvenido a su país y su comida deliciosa la cuál te explican como la preparan, en verdad un lugar recomendable para ir a comer.
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                </tbody>
                 <tbody id="table-body">
                 </tbody>
             </table>
         </section>
-
-
     </main>
 
     <footer class="footer">
@@ -289,44 +300,32 @@
 
     <script src="https://kit.fontawesome.com/81581fb069.js" crossorigin="anonymous"></script>
     <script>
-
-        setTimeout(() => {
-            var productos = [
-                { nombre: 'Producto 1', email: 'Producto 1', mensaje: '$19.99' },
-                { nombre: 'Producto 2', email: 'Producto 2', mensaje: '$24.99' },
-                { nombre: 'Producto 3', email: 'Producto 3', mensaje: '$14.99' },
-                { nombre: 'Producto 4', email: 'Producto 4', mensaje: '$29.99' }
-            ];
-            console.log("Retrasado por 1 segundo.");
-            var datosAlmacenados = localStorage.getItem("formularioDatos");
-            console.log("*", productos);
-            productos = JSON.parse(datosAlmacenados);
-            console.log("******", productos);
-        }, "1000");
-        function llenarTabla() {
-            const tableBody = document.getElementById('table-body');
-
-            productos.forEach(producto => {
-                const row = document.createElement('tr');
+        var datosAlmacenados = sessionStorage.getItem("formularioDatos");
+        var datosParseados = [];
+        if (datosAlmacenados) {
+            var datosParseados = JSON.parse(datosAlmacenados);
 
 
-                const nombreCell = document.createElement('td');
-                nombreCell.textContent = producto.nombre;
+            for (let x = 0; x < datosParseados.length; x++) {
+                var tableBody = document.getElementById('table-body');
+                var row = document.createElement('tr');
+                var nombreCell = document.createElement('td');
+                var emailCell = document.createElement('td');
+                var mensajeCell = document.createElement('td');
+                nombreCell.textContent = datosParseados[x].nombre;
+                emailCell.textContent = datosParseados[x].email;
+                mensajeCell.textContent = datosParseados[x].mensaje;
 
-                const emailCell = document.createElement('td');
-                emailCell.textContent = producto.email;
-
-                const mensajell = document.createElement('td');
-                mensajell.textContent = producto.mensaje;
                 row.appendChild(nombreCell);
                 row.appendChild(emailCell);
-                row.appendChild(mensajell);
+                row.appendChild(mensajeCell);
 
                 tableBody.appendChild(row);
-            });
-        }
-        llenarTabla();
+            }
 
+        } else {
+            console.log("No hay datos almacenados en sessionStorage.");
+        }
         function openModal() {
             document.getElementById("miFormulario").style.display = "block";
         }
@@ -335,34 +334,29 @@
             document.getElementById("miFormulario").style.display = "none";
         }
         function submitTestimony() {
-
+            console.log(datosAlmacenados);
+            sessionStorage.setItem("key", "hola");
             alert("¡Gracias por tu testimonio!");
-        }
-
-
-
-        document.getElementById("miFormulario").addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            // Obtener los valores del formulario
             var nombre = document.getElementById("nombre").value;
             var email = document.getElementById("email").value;
             var mensaje = document.getElementById("mensaje").value;
 
-            // Crear un objeto con los datos
             var datos = {
                 nombre: nombre,
                 email: email,
                 mensaje: mensaje
             };
 
-            // Almacenar los datos en el localStorage
-            localStorage.setItem("formularioDatos", JSON.stringify(datos));
+
+            datosParseados.push(datos);
+            console.log(datosParseados);
+            sessionStorage.setItem("formularioDatos", JSON.stringify(datosParseados));
+
+            document.getElementById("miFormulario").style.display = "none";
+            location.reload();
+        }
 
 
-            // Limpiar el formulario
-            document.getElementById("miFormulario").reset();
-        });
     </script>
 </body>
 
